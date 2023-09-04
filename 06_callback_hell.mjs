@@ -5,7 +5,6 @@ const API_KEY =
 
 const url = `${ENDPOINT}?api_key=${API_KEY}`;
 
-// Fetch list of all cat breeds
 fetch(url)
   .then(function (response) {
     console.log("Status code: " + response.status);
@@ -14,12 +13,10 @@ fetch(url)
   .then(function (responseJSON) {
     console.log(`Found ${responseJSON.length} cat breeds!`);
     console.log(`Fetching sizes of their photos:`);
-    // Loop through each breed and fetch their images, if they exist
     for (const breed of responseJSON) {
       if (breed.image && breed.image.url) {
         fetch(breed.image.url)
           .then(function (imageResponse) {
-            // Process the response body as raw file data
             return imageResponse.blob();
           })
           .then(function (imageData) {
@@ -33,5 +30,3 @@ fetch(url)
   .catch(function (error) {
     console.error(error.message);
   });
-
-// Optional reading: http://callbackhell.com/

@@ -6,7 +6,6 @@ const API_KEY =
 
 const url = `${ENDPOINT}?api_key=${API_KEY}`;
 
-// Fetch endpoint data as JSON
 async function fetchJSON(url) {
   try {
     const breedsResponse = await fetch(url);
@@ -16,7 +15,6 @@ async function fetchJSON(url) {
   }
 }
 
-// Fetch an image and return it's file size
 async function fetchImageSize(url) {
   try {
     const imageResponse = await fetch(url);
@@ -26,18 +24,3 @@ async function fetchImageSize(url) {
     throw new Error(error);
   }
 }
-
-try {
-  const breeds = await fetchJSON(url);
-  console.log(`Fetched ${breeds.length} cat breeds!`);
-  for (const breed of breeds) {
-    if (breed.image && breed.image.url) {
-      const size = await fetchImageSize(breed.image.url);
-      console.log(`The photo of ${breed.name} is ${size} bytes`);
-    }
-  }
-} catch (error) {
-  console.error(error.message);
-}
-
-// Docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/async_function

@@ -13,7 +13,6 @@ async function fetchJSON(url) {
   }
 }
 
-// return image size
 async function fetchImageSize(url) {
   console.log(`Fetching size of ${url}`);
   try {
@@ -24,21 +23,3 @@ async function fetchImageSize(url) {
     throw new Error(error);
   }
 }
-
-try {
-  const breeds = await fetchJSON(url);
-  console.log(`Fetched ${breeds.length} cat breeds!`);
-  const imageRequests = [];
-  for (const breed of breeds) {
-    if (breed.image && breed.image.url) {
-      imageRequests.push(fetchImageSize(breed.image.url));
-    }
-  }
-
-  const sizes = await Promise.allSettled(imageRequests);
-  console.log(sizes);
-} catch (error) {
-  console.error(error.message);
-}
-
-// Docs: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/allSettled
